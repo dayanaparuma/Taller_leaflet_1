@@ -146,217 +146,7 @@
 			iconUrl:'images/marcador.png'
 			});
     
-    function onEachFeature(feature, layer) {if (feature.properties && feature.properties.popupContent) {layer.bindPopup(feature.properties.popupContent);
-    }}  
-
-	var geojsonFeature = [{
-    "type": "Feature",
-    
-    "properties": {
-        "popupContent": "1"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [ -76.508228, 3.480804]
-		
-		
-    }
-	}, {
-    "type": "Feature",
-    
-    "properties": {
-        "popupContent": "2"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.515352, 3.461699]
-		
-		
-    }
-	}, {
-    "type": "Feature",
-    
-    "properties": {
-        "popupContent": "3"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.505439, 3.465040]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    
-    "properties": {
-        "popupContent": "4"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [ -76.513850, 3.468510]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "5"
-    },
-
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.511747, 3.460971]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    
-    "properties": {
-        "popupContent": "6"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.517755, 3.461571]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "7"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.509344, 3.464013] 
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "8"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.509945, 3.468597]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "9"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.514966, 3.469154]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "10"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.512992, 3.474037]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "11"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.504280, 3.473095]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "12"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.497599, 3.485428]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "13"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.500088,3.481958]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "14"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [ -76.509079,3.473737]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "15"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [ -76.508939,3.463970]
-		
-		
-    }
-	},{
-    "type": "Feature",
-    "properties": {
-        "popupContent": "16"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [  -76.513230,3.457973]
-		
-		
-    }
-	}];	
-	
-    var marck = L.icon({
-				iconUrl: 'iconos/beer.png',
-				iconSize:     [37, 37],
-				iconAnchor:   [13, 27],
-				popupAnchor:  [-5,-20] 
-			});
-	var estilo = 
-		{
-			radius: 7,
-			fillColor: "green",
-			color: "black",
-			weight: 1,
-			opacity: 1,
-			fillOpacity: 1,
-		};		
-   
-    var marcador = L.geoJSON(geojsonFeature,{pointToLayer:function(feature, latlng) 
-	{return L.circleMarker(latlng, estilo)},onEachFeature: onEachFeature});
-    var marcador1 = L.geoJSON(geojsonFeature, {pointToLayer: function (feature, latlng) 
-	{return L.marker(latlng, {icon: marck})},onEachFeature: onEachFeature});    
-	 	
-
-    var polygon = L.polygon([[-76.513230,3.457973],[-76.508939,3.463970],[-76.509079,3.473737]]).addTo(mymap);
-   
+   	 	   
     var educacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
 		{
 		layers: 'pot_2014:eqp_uco_educacion',
@@ -376,47 +166,18 @@
 
 	    leyenda.addOverlay(educacion, 'Educacion');
         leyenda.addOverlay(recreacion, 'Recreacion');
-        leyenda.addOverlay(polygon, 'Area');
+        leyenda.addOverlay(poligono, 'Area');
+        leyenda.addOverlay(marcador, 'Sitio de construccion');
 
 	L.easyButton('<img src="iconos/actualizar.png"  align="absmiddle" height="16px" >', function() 
 		{
 		alert('Se recargará la página y podrá perder la información.');
 		location.reload();
 
-	  	}).addTo(mymap);
-    
+	  	}).addTo(mymap);   
     			
-	L.easyButton('<img src="iconos/next.png"  align="absmiddle" height="16px" >', function() 
-		{
-		marcador.addTo(mymap);
 	
-		
-	  	}).addTo(mymap);
-		
-		
-    		
-	L.easyButton('<img src="iconos/pipette.png"  align="absmiddle" height="16px" >', function() 
-		{
-		mymap.removeLayer(marcador);
-		marcador1.addTo(mymap);		
-	  	}).addTo(mymap);
-		
-
-	L.easyButton('<img src="iconos/fire.png"  align="absmiddle" height="10px" >', function() 
-		{	
-		
-		var heat = L.heatLayer([[marcador._layers[53]._latlng.lat,marcador._layers[53]._latlng.lng,10]],{radius: 50}).addTo(mymap);
-		
-		for (var i = 55; i<69; i++){
-
-		heat.addLatLng([marcador._layers[i]._latlng.lat,marcador._layers[i]._latlng.lng,10],{radius: 25});
-
-		};
-		
-        
-		
-	  	}).addTo(mymap);
-
+	
     L.latlngGraticule({
 			showLabel: 3,
 			opacity:1,
@@ -427,17 +188,11 @@
 			]
 		}).addTo(mymap);
 
-    L.easyButton('<img src="iconos/magnifying-glass.png"  align="absmiddle" height="16px" >', function() 
-		{
+  		
+    var marcador = L.marker([3.468716, -76.510482]).addTo(mymap)
+    .bindPopup("<b>Titio de construccion!</b><br />PTAR.").openPopup();
 		
-			var marcador = L.marker([3.468716, -76.510482]);
-			var magnifyingGlass = L.magnifyingGlass({
-			layers: [ marcador, mapabase2 ]
-			});
-
-			mymap.addLayer(magnifyingGlass);
-
-	  	}).addTo(mymap);
+    var poligono = L.polygon([[-76.513230,3.457973],[-76.508939,3.463970],[-76.509079,3.473737]]).addTo(mymap);
 
     L.control.betterscale({position:'bottomleft'}).addTo(mymap);
     L.control.locate({setView:'false',flyto:'false',drawCircle:'false',showCompass:'true',drawMarker:'false',keepCurrentZoomLevel:'true',locateOptions: {
