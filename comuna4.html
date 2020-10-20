@@ -143,8 +143,7 @@
     var marcador = L.marker([3.468716, -76.510482]).addTo(mymap)
     .bindPopup("<b>Sitio de construccion!</b><br />PTAR.").openPopup();
 		
-    var poligono = L.polygon([[-76.513230,3.457973],[-76.508939,3.463970],[-76.509079,3.473737]]).addTo(mymap);
-     
+       
    	 	   
     var educacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
 		{
@@ -164,7 +163,7 @@
 
 	    leyenda.addOverlay(educacion, 'Educacion');
         leyenda.addOverlay(recreacion, 'Recreacion');
-        leyenda.addOverlay(poligono, 'Area');
+        leyenda.addOverlay(polygon, 'Area');
         leyenda.addOverlay(marcador, 'Sitio de construccion');
 
 	L.easyButton('<img src="iconos/actualizar.png"  align="absmiddle" height="16px" >', function() 
@@ -202,7 +201,14 @@
         console.log(marcador);
 
     		
-	
+    L.polygon([
+		[-76.513230,3.457973],
+		[-76.508939,3.463970],
+		[-76.509079,3.473737]
+	]).addTo(mymap).bindPopup("I am a polygon.");
+
+
+	var popup = L.popup();
 
 
 </script>
