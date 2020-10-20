@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+            <title>Comuna 4</title>
+
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>  <!-- plugin jquery -->
+            
+            
+            
+            
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
+            
+            
+            
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />
+            
+            
+            
+            <script src="leaflet-heat.js"></script>
+            <link rel="stylesheet" href="glass/leaflet.magnifyingglass.css" />
+            <link rel="stylesheet" href="posición/dist/L.Control.Locate.min.css" />
+	        <link rel="stylesheet" href="geocodificar/l.geosearch.css" />
+            
+        
+            <style>
+                *{	
+                    padding: 0% ;
+                    margin: 0% 0%;		
+                }
+                html, body{
+                height:100% ;
+                background-size: cover;
+                width:100% vw;
+                }
+                
+                
+                #mapid{
+                
+                width:600px;
+                height:650px;
+                margin-top:2%;
+                margin-left: 200px;}
+            
+                #norte{
+	            position:fixed;
+	            width:3%;
+	            left: 18%;
+	            padding: 1%;
+	            }
+                
+                h1{
+                 margin-top: 1%;
+                 margin-bottom: -1rem;
+                 left: 18%;
+                 color: black;
+                 text-align: center;
+                 font-style: italic;
+                }
+                h3{
+                 margin-top: 1%;
+                 margin-bottom: -1rem;
+                 left: 18%;
+                 color: black;
+                 text-align: center;
+                 font-style: italic;
+                }
+
+                </style>
+            
+                 </head>
+                 
+<body style="background-color:rgb(19, 186, 228);">
+
+    <h1>COMUNA 4</h1> 
+    <div > <h3>Eimy Dayana Paruma Vásquez- 1631757</h3></div>  
+    <div > <h3>Bares en la comuna 4</h3></div>   
+    <div id="mapid" style="z-index:0">
+        <img id="norte" src="norte.png" style="z-index:9999" ></img>
+       
+    </div>  
+     
+      
+
+</body>
+
+    
+   
+    <script src="https://npmcdn.com/jquery@3.0.0/dist/jquery.min.js"></script>
+	<script src="https://npmcdn.com/leaflet@1.0.0-rc.1/dist/leaflet.js"></script>
+	
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
+	<script src="posición/src/L.Control.Locate.js" ></script>
+	<script src="https://kit.fontawesome.com/02eb88b373.js" crossorigin="anonymous"></script>
+   
+	<script src="geocodificar/l.control.geosearch.js"></script>
+    <script src="geocodificar/l.geosearch.provider.esri.js"></script>
+
+	<script src="graticule/Leaflet.Graticule.js"></script>
+	<script src="glass/leaflet.magnifyingglass.js"></script>
+	
+	
+	
+	<link rel="stylesheet" href="betterscale/L.Control.BetterScale.css" />
+	<script src="betterscale/L.Control.BetterScale.js"></script>
+<script>
+    
+    var mapabase = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+            {
+                maxZoom: 18,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            });
+
+    var mapabase2 = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', 
+		    {
+			maxZoom: 18,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		    })
+   
+    var corner1 = L.latLng(3.488331, -76.497035),
+        corner2 = L.latLng(3.453778, -76.518159),
+        bounds = L.latLngBounds(corner1, corner2);
+
+
+	var mymap = L.map('mapid',
+	{
+		minZoom: 10,
+        maxZoom: 18,
+        maxBounds: bounds,
+        maxBoundsViscosity: 1.0   
+    }).setView([3.484173, -76.495579], 14.7).setMinZoom(14.7);
+
+    mapabase.addTo(mymap);
+
+    L.control.scale({position:'bottomright'}).addTo(mymap);
+    var leyenda = L.control.layers({mapabase,mapabase2}).addTo(mymap);
+	
+
+    var icono = L.icon({
+			iconSize: [35, 35],
+			iconUrl:'images/marcador.png'
+			});
+    
+    function onEachFeature(feature, layer) {if (feature.properties && feature.properties.popupContent) {layer.bindPopup(feature.properties.popupContent);
+    }}  
+
+	var geojsonFeature = [{
+    "type": "Feature",
+    
+    "properties": {
+        "popupContent": "1"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [ -76.508228, 3.480804]
+		
+		
+    }
+	}, {
+    "type": "Feature",
+    
+    "properties": {
+        "popupContent": "2"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.515352, 3.461699]
+		
+		
+    }
+	}, {
+    "type": "Feature",
+    
+    "properties": {
+        "popupContent": "3"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.505439, 3.465040]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    
+    "properties": {
+        "popupContent": "4"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [ -76.513850, 3.468510]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "5"
+    },
+
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.511747, 3.460971]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    
+    "properties": {
+        "popupContent": "6"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.517755, 3.461571]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "7"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.509344, 3.464013] 
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "8"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.509945, 3.468597]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "9"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.514966, 3.469154]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "10"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.512992, 3.474037]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "11"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.504280, 3.473095]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "12"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.497599, 3.485428]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "13"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.500088,3.481958]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "14"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [ -76.509079,3.473737]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "15"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [ -76.508939,3.463970]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "16"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.513230,3.457973]
+		
+		
+    }
+	}];	
+	
+    var marck = L.icon({
+				iconUrl: 'iconos/beer.png',
+				iconSize:     [37, 37],
+				iconAnchor:   [13, 27],
+				popupAnchor:  [-5,-20] 
+			});
+	var estilo = 
+		{
+			radius: 7,
+			fillColor: "green",
+			color: "black",
+			weight: 1,
+			opacity: 1,
+			fillOpacity: 1,
+		};		
+   
+    var marcador = L.geoJSON(geojsonFeature,{pointToLayer:function(feature, latlng) 
+	{return L.circleMarker(latlng, estilo)},onEachFeature: onEachFeature});
+    var marcador1 = L.geoJSON(geojsonFeature, {pointToLayer: function (feature, latlng) 
+	{return L.marker(latlng, {icon: marck})},onEachFeature: onEachFeature});    
+	 	
+
+
+    var barrios = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		{
+		layers: 'idesc:mc_barrios',
+		format: 'image/png',
+		transparent: true,
+		});
+		mymap.addLayer(barrios);
+
+    var educacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		{
+		layers: 'pot_2014:eqp_uco_educacion',
+		format: 'image/png',
+		transparent: true,
+		});
+        mymap.addLayer(educacion);
+        
+        var comunas = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		{
+		layers: 'idesc:mc_comunas',
+		format: 'image/png',
+		transparent: true,
+		});
+		mymap.addLayer(comunas);
+
+        var recreacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		{
+		layers: 'pot_2014:eqp_uco_recreacion',
+		format: 'image/png',
+		transparent: true,
+		});
+		mymap.addLayer(recreacion);
+        
+
+	leyenda.addOverlay(barrios, 'Barrios');
+    leyenda.addOverlay(educacion, 'Educacion');
+    leyenda.addOverlay(comunas, 'Comunas');
+    leyenda.addOverlay(recreacion, 'Recreacion');
+
+	L.easyButton('<img src="iconos/actualizar.png"  align="absmiddle" height="16px" >', function() 
+		{
+		alert('Se recargará la página y podrá perder la información.');
+		location.reload();
+
+	  	}).addTo(mymap);
+    
+    			
+	L.easyButton('<img src="iconos/next.png"  align="absmiddle" height="16px" >', function() 
+		{
+		marcador.addTo(mymap);
+	
+		
+	  	}).addTo(mymap);
+		
+		
+    		
+	L.easyButton('<img src="iconos/pipette.png"  align="absmiddle" height="16px" >', function() 
+		{
+		mymap.removeLayer(marcador);
+		marcador1.addTo(mymap);		
+	  	}).addTo(mymap);
+		
+
+	L.easyButton('<img src="iconos/fire.png"  align="absmiddle" height="10px" >', function() 
+		{	
+		
+		var heat = L.heatLayer([[marcador._layers[53]._latlng.lat,marcador._layers[53]._latlng.lng,10]],{radius: 50}).addTo(mymap);
+		
+		for (var i = 55; i<69; i++){
+
+		heat.addLatLng([marcador._layers[i]._latlng.lat,marcador._layers[i]._latlng.lng,10],{radius: 25});
+
+		};
+		
+        
+		
+	  	}).addTo(mymap);
+
+    L.latlngGraticule({
+			showLabel: 3,
+			opacity:1,
+			color: 'black',
+			zoomInterval: [
+				{start: 15, end: 15, interval: 0.009}
+
+			]
+		}).addTo(mymap);
+
+    L.easyButton('<img src="iconos/magnifying-glass.png"  align="absmiddle" height="16px" >', function() 
+		{
+		
+			var marcador = L.marker([3.468716, -76.510482]);
+			var magnifyingGlass = L.magnifyingGlass({
+			layers: [ marcador, mapabase2 ]
+			});
+
+			mymap.addLayer(magnifyingGlass);
+
+	  	}).addTo(mymap);
+
+    L.control.betterscale({position:'bottomleft'}).addTo(mymap);
+    L.control.locate({setView:'false',flyto:'false',drawCircle:'false',showCompass:'true',drawMarker:'false',keepCurrentZoomLevel:'true',locateOptions: {
+               enableHighAccuracy: true}}).addTo(mymap);
+	
+	
+	new L.Control.GeoSearch({provider: new L.GeoSearch.Provider.Esri()}).addTo(mymap);
+
+    
+
+    L.control.scalefactor().addTo(mymap);
+	
+        console.log(marcador);
+
+    		
+	
+
+
+</script>
+
+
+</div>
+
+
+</html>
