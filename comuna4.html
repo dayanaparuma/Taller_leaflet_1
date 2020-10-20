@@ -187,24 +187,11 @@
 
   		
     
-    L.control.betterscale({position:'bottomleft'}).addTo(mymap);
-    L.control.locate({setView:'false',flyto:'false',drawCircle:'false',showCompass:'true',drawMarker:'false',keepCurrentZoomLevel:'true',locateOptions: {
-               enableHighAccuracy: true}}).addTo(mymap);
-	
-	
-	new L.Control.GeoSearch({provider: new L.GeoSearch.Provider.Esri()}).addTo(mymap);
-
-    
-
-    L.control.scalefactor().addTo(mymap);
-	
-        console.log(marcador);
-
-    		
+       		
     L.polygon([
-		[-76.513230,3.457973],
-		[-76.508939,3.463970],
-		[-76.509079,3.473737]
+		[3.457973,-76.513230],
+		[3.463970,-76.508939],
+		[3.473737,-76.509079]
 	]).addTo(mymap).bindPopup("I am a polygon.");
 
 
