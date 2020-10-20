@@ -140,12 +140,11 @@
     L.control.scale({position:'bottomright'}).addTo(mymap);
     var leyenda = L.control.layers({mapabase,mapabase2}).addTo(mymap);
 	
-
-    var icono = L.icon({
-			iconSize: [35, 35],
-			iconUrl:'images/marcador.png'
-			});
-    
+    var marcador = L.marker([3.468716, -76.510482]).addTo(mymap)
+    .bindPopup("<b>Sitio de construccion!</b><br />PTAR.").openPopup();
+		
+    var poligono = L.polygon([[-76.513230,3.457973],[-76.508939,3.463970],[-76.509079,3.473737]]).addTo(mymap);
+     
    	 	   
     var educacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
 		{
@@ -161,8 +160,7 @@
 		format: 'image/png',
 		transparent: true,
 		});
-		mymap.addLayer(recreacion);
-        
+		mymap.addLayer(recreacion);        
 
 	    leyenda.addOverlay(educacion, 'Educacion');
         leyenda.addOverlay(recreacion, 'Recreacion');
@@ -189,11 +187,7 @@
 		}).addTo(mymap);
 
   		
-    var marcador = L.marker([3.468716, -76.510482]).addTo(mymap)
-    .bindPopup("<b>Titio de construccion!</b><br />PTAR.").openPopup();
-		
-    var poligono = L.polygon([[-76.513230,3.457973],[-76.508939,3.463970],[-76.509079,3.473737]]).addTo(mymap);
-
+    
     L.control.betterscale({position:'bottomleft'}).addTo(mymap);
     L.control.locate({setView:'false',flyto:'false',drawCircle:'false',showCompass:'true',drawMarker:'false',keepCurrentZoomLevel:'true',locateOptions: {
                enableHighAccuracy: true}}).addTo(mymap);
