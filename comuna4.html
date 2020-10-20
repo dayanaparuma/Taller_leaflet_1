@@ -355,15 +355,8 @@
 	{return L.marker(latlng, {icon: marck})},onEachFeature: onEachFeature});    
 	 	
 
-
-    var barrios = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
-		{
-		layers: 'idesc:mc_barrios',
-		format: 'image/png',
-		transparent: true,
-		});
-		mymap.addLayer(barrios);
-
+    var polygon = L.polygon([[-76.513230,3.457973],[-76.508939,3.463970],[-76.509079,3.473737]]).addTo(mymap);
+   
     var educacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
 		{
 		layers: 'pot_2014:eqp_uco_educacion',
@@ -372,15 +365,7 @@
 		});
         mymap.addLayer(educacion);
         
-        var comunas = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
-		{
-		layers: 'idesc:mc_comunas',
-		format: 'image/png',
-		transparent: true,
-		});
-		mymap.addLayer(comunas);
-
-        var recreacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+    var recreacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
 		{
 		layers: 'pot_2014:eqp_uco_recreacion',
 		format: 'image/png',
@@ -389,10 +374,9 @@
 		mymap.addLayer(recreacion);
         
 
-	leyenda.addOverlay(barrios, 'Barrios');
-    leyenda.addOverlay(educacion, 'Educacion');
-    leyenda.addOverlay(comunas, 'Comunas');
-    leyenda.addOverlay(recreacion, 'Recreacion');
+	    leyenda.addOverlay(educacion, 'Educacion');
+        leyenda.addOverlay(recreacion, 'Recreacion');
+        leyenda.addOverlay(polygon, 'Area');
 
 	L.easyButton('<img src="iconos/actualizar.png"  align="absmiddle" height="16px" >', function() 
 		{
