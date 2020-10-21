@@ -128,7 +128,7 @@
     L.control.scale({position:'bottomright'}).addTo(mymap);
     var leyenda = L.control.layers({mapabase,mapabase2}).addTo(mymap);
 	
-    function csv(){
+    var puntos = function csv(){
 	  'use strict';
 
 	  $.get('csv/ejemplo.csv', function(csvContents) {
@@ -248,7 +248,7 @@ var poligono=L.geoJSON(states, {
 	leyenda.addOverlay(comunas, 'Comunas');
     leyenda.addOverlay(recreacion, 'Recreacion');
     leyenda.addOverlay(poligono, 'AID');
-        
+    leyenda.addOverlay(puntos, 'Puntos');    
 
 	L.easyButton('<img src="iconos/actualizar.png"  align="absmiddle" height="16px" >', function() 
 		{
