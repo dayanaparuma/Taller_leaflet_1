@@ -2,31 +2,21 @@
 <html>
 
     <head>
-            <title>Comuna 4</title>
+            <title>LEAFLET_GITHUB</title>
 
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>  <!-- plugin jquery -->
-            
-            
-            
+                       
             
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
-            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>         
             
             
             
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />
             
-            
-            
-            <script src="leaflet-heat.js"></script>
-            <link rel="stylesheet" href="glass/leaflet.magnifyingglass.css" />
-            <link rel="stylesheet" href="posición/dist/L.Control.Locate.min.css" />
-	        <link rel="stylesheet" href="geocodificar/l.geosearch.css" />
-            
-        
+                    
             <style>
                 *{	
                     padding: 0% ;
@@ -41,10 +31,9 @@
                 
                 #mapid{
                 
-                width:600px;
-                height:650px;
-                margin-top:2%;
-                margin-left: 200px;}
+                widows: 100%;
+                height:100%;
+                }
             
                 #norte{
 	            position:fixed;
@@ -74,37 +63,36 @@
             
                  </head>
                  
-<body style="background-color:rgb(19, 186, 228);">
+<body style="background-color:rgb(13, 197, 151);">
 
-    <h1>COMUNA 4</h1> 
+    <h1>SIG WEB</h1> 
     <div > <h3>Eimy Dayana Paruma Vásquez- 1631757</h3></div>  
-    <div > <h3>Bares en la comuna 4</h3></div>   
+    <div > <h3>Leaflet - GitHub</h3></div>   
     <div id="mapid" style="z-index:0">
-        <img id="norte" src="norte.png" style="z-index:9999" ></img>
-       
+              
     </div>  
      
       
 
 </body>
 
-    
-   
-    <script src="https://npmcdn.com/jquery@3.0.0/dist/jquery.min.js"></script>
-	<script src="https://npmcdn.com/leaflet@1.0.0-rc.1/dist/leaflet.js"></script>
-	
+      	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
-	<script src="posición/src/L.Control.Locate.js" ></script>
-	<script src="https://kit.fontawesome.com/02eb88b373.js" crossorigin="anonymous"></script>
-   
-	<script src="geocodificar/l.control.geosearch.js"></script>
-    <script src="geocodificar/l.geosearch.provider.esri.js"></script>
+	   
+    <script src="https://kit.fontawesome.com/02eb88b373.js" crossorigin="anonymous"></script>
+    <script src="csv/leaflet.geocsv.js"></script>
+    <script src="choropleth/choropleth.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script> 
+
 
 	<script src="graticule/Leaflet.Graticule.js"></script>
-	<script src="glass/leaflet.magnifyingglass.js"></script>
-	
-	
+    <script src="js/leaflet.browser.print.min.js"></script>
+    <script src="js/leaflet.browser.print.sizes.js"></script>
+	<script src="js/leaflet.browser.print.utils.js"></script>
+    
+  
 	
 	<link rel="stylesheet" href="betterscale/L.Control.BetterScale.css" />
 	<script src="betterscale/L.Control.BetterScale.js"></script>
@@ -122,80 +110,194 @@
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		    })
    
-    var corner1 = L.latLng(3.488331, -76.497035),
-        corner2 = L.latLng(3.453778, -76.518159),
+    var corner1 = L.latLng(3.449870, -76.540638),
+        corner2 = L.latLng(3.385381, -76.514688),
         bounds = L.latLngBounds(corner1, corner2);
 
 
 	var mymap = L.map('mapid',
 	{
-		minZoom: 10,
-        maxZoom: 18,
+		minZoom: 5,
+        maxZoom: 25,
         maxBounds: bounds,
         maxBoundsViscosity: 1.0   
-    }).setView([3.484173, -76.495579], 14.7).setMinZoom(14.7);
+    }).setView([3.484173, -76.495579], 13).setMinZoom(13);
 
     mapabase.addTo(mymap);
 
     L.control.scale({position:'bottomright'}).addTo(mymap);
     var leyenda = L.control.layers({mapabase,mapabase2}).addTo(mymap);
 	
-    var marcador = L.marker([3.468716, -76.510482]).addTo(mymap)
-    .bindPopup("<b>Sitio de construccion!</b><br />PTAR.").openPopup();
+    function csv(){
+	  'use strict';
+
+	  $.get('csv/ejemplo.csv', function(csvContents) {
+		var geoLayer = L.geoCsv(csvContents, {firstLineTitles: true, fieldSeparator: ';'});
+		mymap.addLayer(geoLayer);
+	  });
+	};
+    csv();
+    
+    var icono = L.icon({
+			iconSize: [35, 35],
+			iconUrl:'images/marcador.png'
+			});
+    
+    function onEachFeature(feature, layer) {if (feature.properties && feature.properties.popupContent) {layer.bindPopup(feature.properties.popupContent);
+    }}  
+
+
+    var states = [{
+    "type": "Feature",
+    "properties": {"party": "PTAR"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [-76.542647, 3.398311],
+            [-76.504993, 3.415670],
+            [-76.509079,3.473737]
+        ]]
+    }
+}];
+
+var poligono=L.geoJSON(states, {
+    style: function(feature) {
+        switch (feature.properties.party) {
+            case 'PTAR': return {color: "#ff0000"};
+            }
+    }
+}).addTo(mymap);	
+
+	var geojsonFeature = [{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "14"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [ -76.509079,3.473737]
 		
-       
-   	 	   
-    var educacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "15"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [ -76.504993, 3.415670]
+		
+		
+    }
+	},{
+    "type": "Feature",
+    "properties": {
+        "popupContent": "16"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [  -76.542647, 3.398311]
+		
+		
+    }
+	}];	
+	
+    var marck = L.icon({
+				iconUrl: 'iconos/beer.png',
+				iconSize:     [37, 37],
+				iconAnchor:   [13, 27],
+				popupAnchor:  [-5,-20] 
+			});
+	var estilo = 
 		{
-		layers: 'pot_2014:eqp_uco_educacion',
+			radius: 7,
+			fillColor: "black",
+			color: "black",
+			weight: 1,
+			opacity: 1,
+			fillOpacity: 1,
+		};		
+   
+    var marcador = L.geoJSON(geojsonFeature,{pointToLayer:function(feature, latlng) 
+	{return L.circleMarker(latlng, estilo)},onEachFeature: onEachFeature});
+    var marcador1 = L.geoJSON(geojsonFeature, {pointToLayer: function (feature, latlng) 
+	{return L.marker(latlng, {icon: marck})},onEachFeature: onEachFeature});    
+	 	
+
+
+                
+        var comunas = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		{
+		layers: 'idesc:mc_comunas',
 		format: 'image/png',
 		transparent: true,
 		});
-        mymap.addLayer(educacion);
-        
-    var recreacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		mymap.addLayer(comunas);
+
+        var recreacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
 		{
 		layers: 'pot_2014:eqp_uco_recreacion',
 		format: 'image/png',
 		transparent: true,
 		});
-		mymap.addLayer(recreacion);        
+		mymap.addLayer(recreacion);
+        
 
-	    leyenda.addOverlay(educacion, 'Educacion');
-        leyenda.addOverlay(recreacion, 'Recreacion');
-        leyenda.addOverlay(polygon, 'Area');
-        leyenda.addOverlay(marcador, 'Sitio de construccion');
+	leyenda.addOverlay(comunas, 'Comunas');
+    leyenda.addOverlay(recreacion, 'Recreacion');
+    leyenda.addOverlay(poligono, 'AID');
+
+
+    
+    
 
 	L.easyButton('<img src="iconos/actualizar.png"  align="absmiddle" height="16px" >', function() 
 		{
 		alert('Se recargará la página y podrá perder la información.');
 		location.reload();
 
-	  	}).addTo(mymap);   
+	  	}).addTo(mymap);
+    
     			
+	L.easyButton('<img src="iconos/next.png"  align="absmiddle" height="16px" >', function() 
+		{
+		marcador.addTo(mymap);
 	
-	
+		
+	  	}).addTo(mymap);
+		
+    
+    		
+	L.easyButton('<img src="iconos/pipette.png"  align="absmiddle" height="16px" >', function() 
+		{
+		mymap.removeLayer(marcador);
+		marcador1.addTo(mymap);		
+	  	}).addTo(mymap);
+		
+    //plugin imprimir
+	L.control.browserPrint().addTo(mymap);
+
     L.latlngGraticule({
 			showLabel: 3,
 			opacity:1,
 			color: 'black',
 			zoomInterval: [
-				{start: 15, end: 15, interval: 0.009}
+				{start: 13, end: 13, interval: 0.050}
 
 			]
 		}).addTo(mymap);
 
-  		
     
-       		
-    L.polygon([
-		[3.457973,-76.513230],
-		[3.463970,-76.508939],
-		[3.473737,-76.509079]
-	]).addTo(mymap).bindPopup("I am a polygon.");
 
+    L.control.betterscale({position:'bottomleft'}).addTo(mymap);
+     
+    L.control.scalefactor().addTo(mymap);
+	
+        console.log(marcador);
 
-	var popup = L.popup();
+    
+	
 
 
 </script>
