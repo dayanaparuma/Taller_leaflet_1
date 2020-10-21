@@ -10,12 +10,11 @@
             
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" />
             <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>         
-            
-            
+                        
             
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />
-            <link rel="stylesheet" href="../src/leaflet-search.css" />
+            <link rel="stylesheet" href="leaflet-search-master/dist/leaflet-search.css" />
                     
             <style>
                 *{	
@@ -68,14 +67,9 @@
     <h1>SIG WEB</h1> 
     <div > <h3>Eimy Dayana Paruma Vásquez- 1631757</h3></div>  
     <div > <h3>Leaflet - GitHub</h3></div>   
-    <div id="mapid" style="z-index:0">
-              
-    </div>  
+    <div id="mapid" style="z-index:0"></div>  
      
       
-
-</body>
-
       	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
@@ -85,18 +79,19 @@
     <script src="choropleth/choropleth.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script> 
-
+    <script src="js/comunas_cali_0.js"></script>
+    <script src="leaflet-search-master/dist/leaflet-search.js"></script>
 
 	<script src="graticule/Leaflet.Graticule.js"></script>
     <script src="js/leaflet.browser.print.min.js"></script>
     <script src="js/leaflet.browser.print.sizes.js"></script>
-	<script src="js/leaflet.browser.print.utils.js"></script>
-    <script src="leaflet-search-master\dist\leaflet-search.js"></script>
-    <script src="/AID.js"></script>
+	<script src="js/leaflet.browser.print.utils.js"></script>    
+    
   
 	
 	<link rel="stylesheet" href="betterscale/L.Control.BetterScale.css" />
-	<script src="betterscale/L.Control.BetterScale.js"></script>
+    <script src="betterscale/L.Control.BetterScale.js"></script>
+    
 <script>
     
     var mapabase = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
@@ -126,6 +121,8 @@
 
     mapabase.addTo(mymap);
 
+    
+
     L.control.scale({position:'bottomright'}).addTo(mymap);
     var leyenda = L.control.layers({mapabase,mapabase2}).addTo(mymap);
 	
@@ -138,13 +135,9 @@
 	  });
 	 };
      csv();
+
    
-    
-    var icono = L.icon({
-			iconSize: [35, 35],
-			iconUrl:'images/marcador.png'
-			});
-    
+
     function onEachFeature(feature, layer) {if (feature.properties && feature.properties.popupContent) {layer.bindPopup(feature.properties.popupContent);
     }}  
 
@@ -162,13 +155,14 @@
     }
 }];
 
-var poligono=L.geoJSON(states, {
+    var poligono=L.geoJSON(states, {
     style: function(feature) {
         switch (feature.properties.party) {
             case 'PTAR': return {color: "#ff0000"};
             }
     }
-}).addTo(mymap);	
+    }).addTo(mymap);	
+
 
 	var geojsonFeature = [{
     "type": "Feature",
@@ -205,14 +199,7 @@ var poligono=L.geoJSON(states, {
     }
     }];	
     
-    var layer_comunas_cali_0 = new L.geoJson(json_comunas_cali_0, {
-        attribution:  '' ,
-        pane: 'pane_comunas_cali_0',
-        onEachFeature: pop_comunas_cali_0,
-        style: style_comunas_cali_0
-    });
     
-    mymap.addLayer(layer_comunas_cali_0);
 	
     var marck = L.icon({
 				iconUrl: 'iconos/beer.png',
@@ -235,29 +222,22 @@ var poligono=L.geoJSON(states, {
     var marcador1 = L.geoJSON(geojsonFeature, {pointToLayer: function (feature, latlng) 
 	{return L.marker(latlng, {icon: marck})},onEachFeature: onEachFeature});    
 	 	
+                 
+        
 
-
-                
-        var comunas = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
-		{
-		layers: 'idesc:mc_comunas',
-		format: 'image/png',
-		transparent: true,
-		});
-		mymap.addLayer(comunas);
-
-        var recreacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+    var recreacion = L.tileLayer.wms('http://idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
 		{
 		layers: 'pot_2014:eqp_uco_recreacion',
 		format: 'image/png',
 		transparent: true,
 		});
-		mymap.addLayer(recreacion);
+	mymap.addLayer(recreacion);
         
+    
 
-	leyenda.addOverlay(comunas, 'Comunas');
     leyenda.addOverlay(recreacion, 'Recreacion');
     leyenda.addOverlay(poligono, 'AID');
+   
     
     
 
@@ -282,10 +262,15 @@ var poligono=L.geoJSON(states, {
 		{
 		mymap.removeLayer(marcador);
 		marcador1.addTo(mymap);		
-	  	}).addTo(mymap);
+          }).addTo(mymap);
+          
+
+    
 		
     //plugin imprimir
 	L.control.browserPrint().addTo(mymap);
+
+    
 
     L.latlngGraticule({
 			showLabel: 3,
@@ -297,14 +282,28 @@ var poligono=L.geoJSON(states, {
 			]
 		}).addTo(mymap);
 
+   
     
-
     L.control.betterscale({position:'bottomleft'}).addTo(mymap);
      
     L.control.scalefactor().addTo(mymap);
 	
-        console.log(marcador);
+    console.log(marcador);
 
+    var layer_comunas_cali_0 = new L.geoJson(json_comunas_cali_0, {
+        attribution:  '',
+        pane: 'pane_comunas_cali_0',
+        onEachFeature: pop_comunas_cali_0,
+        style: style_comunas_cali_0
+    });
+    
+    mymap.addLayer(layer_comunas_cali_0);
+    
+    var icono = L.icon({
+			iconSize: [35, 35],
+			iconUrl:'images/marcador.png'
+            });
+            
     mymap.addControl(new L.Control.Search({
         layer: layer_comunas_cali_0,
         initial: false,
@@ -313,13 +312,12 @@ var poligono=L.geoJSON(states, {
     document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
 
-	
 
 
 </script>
 
 
-</div>
 
+</body>
 
 </html>
