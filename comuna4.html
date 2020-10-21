@@ -121,14 +121,7 @@
 
     mapabase.addTo(mymap);
 
-    var layer_comunas_cali_0 = new L.geoJson(json_comunas_cali_0, {
-        attribution:  '' ,
-        pane: 'pane_comunas_cali_0',
-        onEachFeature: pop_comunas_cali_0,
-        style: style_comunas_cali_0
-    });
     
-    mymap.addLayer(layer_comunas_cali_0);
 
     L.control.scale({position:'bottomright'}).addTo(mymap);
     var leyenda = L.control.layers({mapabase,mapabase2}).addTo(mymap);
@@ -269,7 +262,10 @@
 		{
 		mymap.removeLayer(marcador);
 		marcador1.addTo(mymap);		
-	  	}).addTo(mymap);
+          }).addTo(mymap);
+          
+
+    
 		
     //plugin imprimir
 	L.control.browserPrint().addTo(mymap);
@@ -287,7 +283,21 @@
 		}).addTo(mymap);
 
    
-   
+    
+    L.control.betterscale({position:'bottomleft'}).addTo(mymap);
+     
+    L.control.scalefactor().addTo(mymap);
+	
+    console.log(marcador);
+
+    var layer_comunas_cali_0 = new L.geoJson(json_comunas_cali_0, {
+        attribution:  '',
+        pane: 'pane_comunas_cali_0',
+        onEachFeature: pop_comunas_cali_0,
+        style: style_comunas_cali_0
+    });
+    
+    mymap.addLayer(layer_comunas_cali_0);
     
     var icono = L.icon({
 			iconSize: [35, 35],
@@ -302,13 +312,6 @@
     document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
 
-    L.control.betterscale({position:'bottomleft'}).addTo(mymap);
-     
-    L.control.scalefactor().addTo(mymap);
-	
-    console.log(marcador);
-
-   
 
 
 </script>
